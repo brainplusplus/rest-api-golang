@@ -1,0 +1,41 @@
+[server]
+mode = "development"
+port = 8080
+debug = true
+http_timeout = 10000
+log_path = "./log/app-log.log"
+timezone = "Asia/Jakarta"
+base_url = "http://127.0.0.1:8080"
+
+[smtp]
+username = "xxxx"
+password = "xxxx"
+port = 587
+host = "smtp-relay.brevo.com"
+from_sender = "no-reply@pandaisuite.com"
+
+[jwt]
+timeout = 8640000000
+signature_key = "golang-secret-key"
+issuer = "cognotiv"
+
+[database]
+db_driver = "mysql"
+db_url = "root:root@(localhost:3306)/simple_ecommerce?parseTime=true"
+props_max_idle = 3
+props_max_conn = 3
+props_max_lifetime = 3
+
+[cron]
+send_each_pending_order_to_customer_expression = "0 0 * * *"
+send_csv_orders_to_admins_expression = "0 0 * * *"
+
+[development]
+baseUrlExternalAPI = "http://web3.xxxxxxxxxx.com:2121/partner-service/"
+clientID = "XXXXXX"
+schedule_expired_before = 900
+
+[production]
+baseUrlExternalAPI = "http://web3.xxxxxxxxxxx.com:2121/partner-service/"
+clientID = "YYYYYYY"
+schedule_expired_before = 900

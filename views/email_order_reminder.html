@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>Order List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Order Detail</h2>
+        <hr/>
+        <p>Hi {{.Order.CustomerName}}, this is your pending order detail.</p>
+        <h4>Order Tgl : {{json_date_format .Order.OrderDate "02 Jan 2006"}}</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range .Order.OrderProducts}}
+            <tr>
+                <td>{{.ProductName}}</td>
+                <td>{{display_default_money .Price}}</td>
+                <td>{{.Quantity}}</td>
+                <td>{{display_default_money .TotalPrice}}</td>
+            </tr>
+            {{end}}
+            <tr>
+                <td colspan="3" style="text-align: center;"><strong>Total</strong></td>
+                <td><strong>{{display_default_money .Order.TotalPrice}}</strong></td>
+            </tr>
+            </tbody>
+        </table>
+        <p>Please Complete your order with this link Below</p>
+        <a href="{{.BaseURL}}/order/view/{{.Order.Token}}" target="_blank"><button class="btn-warning">View Order</button></a>
+    </div>
+</body>
+</html>

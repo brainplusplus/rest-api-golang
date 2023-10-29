@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>Order List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        {{if eq .Order.Status "Pending"}}
+        <div class="alert alert-warning" role="alert">
+            <h1>Your Order Still Pending</h1>
+        </div>
+        {{else}}
+        <div class="alert alert-success" role="alert">
+            <h1>Your Order Has Completed</h1>
+        </div>
+        {{end}}
+        <h2>Order Detail</h2>
+        <hr/>
+        <p>Hi {{.Order.CustomerName}}, this is your order detail.</p>
+        <h4>Order Tgl : {{json_date_to_string .Order.OrderDate}}</h4>
+        <h4>Order Status : <strong>{{.Order.Status}}</strong></h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range .Order.OrderProducts}}
+            <tr>
+                <td>{{.ProductName}}</td>
+                <td>{{display_default_money .Price}}</td>
+                <td>{{.Quantity}}</td>
+                <td>{{display_default_money .TotalPrice}}</td>
+            </tr>
+            {{end}}
+            <tr>
+                <td colspan="3" style="text-align: center;"><strong>Total</strong></td>
+                <td><strong>{{display_default_money .Order.TotalPrice}}</strong></td>
+            </tr>
+            </tbody>
+        </table>
+        {{if eq .Order.Status "Pending"}}
+            <p>Please Complete your order with this link Below</p>
+            <a href="{{.BaseURL}}/order/complete/{{.Order.Token}}" target="_blank"><button class="btn-warning">Pay My Order</button></a>
+        {{end}}
+    </div>
+</body>
+</html>

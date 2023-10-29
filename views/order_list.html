@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>Order List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Order List</h2>
+        <hr/>
+        {{range .Orders}}
+        <h4>Order Tgl : {{json_date_to_string .OrderDate}}</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range .OrderProducts}}
+            <tr>
+                <td>{{.ProductName}}</td>
+                <td>{{.Price}}</td>
+                <td>{{.Quantity}}</td>
+                <td>{{.TotalPrice}}</td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+        {{end}}
+    </div>
+</body>
+</html>
